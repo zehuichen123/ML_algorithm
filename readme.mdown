@@ -1,0 +1,11 @@
+# Machine Learning Algorithm Code
+1.Intro
+---
+This is my learning code for the book <i>Machine Learning Algorithm</i>. The book has already provided the code but I'd like to implement the whole process by myself. Practice makes perfect. Only reading the code won't make you get much progress. Also, you can download my code and test them yourself. All code can run sucessfully with python3.
+2.Details
+---
+- For chapter2, I write the code by notate the former and continue writing just below the original code. So, you may also notate them if you want to run successfully.
+- To run successfully, you need to gurantee that you have installed `sklearn`,`matplotlib`,`numpy`.
+3.Your opinions
+---
+I'd be appreciated much if you can give me some advice about this repository or help me find some mistakes or disadvantages about my code. What's more, if you have some problems with my code or ML algorithm, I'd like to help you with my best try. All of these can be accessed just by opening an issue in this repository. Thanx!
