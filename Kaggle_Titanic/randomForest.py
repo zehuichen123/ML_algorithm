@@ -44,13 +44,17 @@ X_test=dv.transform(X_test.to_dict(orient='record'))
 #lr=LogisticRegression()
 #lr.fit(X,y)
 #predict=lr.predict(X_test)
-rfc=RandomForestClassifier(n_estimators=50, max_features='sqrt')
-
 sp=SelectPercentile(chi2,percentile=92)
 X_train_sp=sp.fit_transform(X_train,y)
 X_test_sp=sp.transform(X_test)
 
 
+
+
+	
+rfc=RandomForestClassifier(n_estimators=30, max_features='sqrt')
+
+ 
 
 
 rfc.fit(X_train_sp,y)
