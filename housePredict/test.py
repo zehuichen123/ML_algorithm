@@ -10,8 +10,7 @@ from sklearn.cross_validation import cross_val_score
 from sklearn.linear_model import LinearRegression,RANSACRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
-from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor,GradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LassoCV
 
@@ -21,7 +20,7 @@ testId=testData['Id']
 testData=testData.drop(['Id'],axis=1)
 
 Y=rawData['SalePrice']
-rawData=rawData.drop(['SalePrice','Id'],axis=1)
+rawData=rawData.drop(['SalePrice'],axis=1)
 
 rawData_d=pd.get_dummies(rawData)
 
@@ -48,19 +47,14 @@ ss=StandardScaler()
 X_scale=ss.fit_transform(X_train)
 X_test_scale=ss.transform(X_test)
 
-ls1=LassoCV()
+rr=GradientBoostingRegressor(n_estimators=3000,learning_rate=0.05, max_features='sqrt')
 
 
 #skb=SelectKBest(f_regression)
 #X_scale_k=skb.fit_transform(X_scale,Y)
-print(cross_val_score(ls1,X_scale,Y,cv=5))
 
-'''
-ls1=LassoCV()
-rr=RANSACRegressor(ls1)
 rr.fit(X_scale,Y)
 #print(cross_val_score(lr,X_train,Y,scoring='neg_mean_squared_error',cv=5))
 predict=np.array(rr.predict(X_test_scale))
 final=np.hstack((testId.reshape(-1,1),predict.reshape(-1,1)))
 np.savetxt('new.csv',final,delimiter=',',fmt='%d')
-''' 
