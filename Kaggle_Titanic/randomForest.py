@@ -7,9 +7,10 @@ import numpy as np
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 #from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+#from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import SelectPercentile,chi2,f_regression
 from sklearn.cross_validation import cross_val_score
+from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier
 from sklearn.svm import SVC
 rawData=pd.read_csv('train.csv')
@@ -55,10 +56,13 @@ sp=SelectPercentile(chi2,percentile=92)
 X_train_sp=sp.fit_transform(X_train,y)
 X_test_sp=sp.transform(X_test)
 
+ss=StandardScaler()
+X_train_sp=ss.fit_transform(X_train_sp.todense())
+X_test_sp=ss.transform(X_test_sp.todense())
 #rfc=
 #gs.fit(X_train_sp,y)
 rf_params = {
-    'n_estimators': 800,
+    'n_estimators': 3000,
     'max_features' : 'sqrt',
 }
 rf = RandomForestClassifier(**rf_params)
@@ -68,9 +72,9 @@ predict_rf=rf.predict(X_test_sp)
 # Extra Trees Parameters
 et_params = {
     'n_jobs': -1,
-    'n_estimators':500,
+    'n_estimators':3000,
     #'max_features': 0.5,
-    'max_depth': 8,
+    'max_depth': 5,
     'min_samples_leaf': 2,
     'verbose': 0
 }
@@ -79,7 +83,7 @@ et.fit(X_train_sp,y)
 predict_et=et.predict(X_test_sp)
 # AdaBoost parameters
 ada_params = {
-    'n_estimators': 800,
+    'n_estimators': 3000,
     'learning_rate' : 0.5
 }
 
@@ -88,7 +92,7 @@ ada.fit(X_train_sp,y)
 predict_ada=ada.predict(X_test_sp)
 # Gradient Boosting parameters
 gb_params = {
-    'n_estimators': 800,
+    'n_estimators': 3000,
      #'max_features': 0.2,
     'max_depth': 5,
     #'min_samples_leaf': 2,
@@ -129,6 +133,7 @@ for i,j in enumerate(predict_et):
         one[i]+=1
     else:
         zero[i]+=1
+
 for i,j in enumerate(predict_svc):
     if j == 1:
         one[i]+=1
