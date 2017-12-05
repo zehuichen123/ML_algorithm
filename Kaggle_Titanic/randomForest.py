@@ -56,13 +56,8 @@ sp=SelectPercentile(chi2,percentile=92)
 X_train_sp=sp.fit_transform(X_train,y)
 X_test_sp=sp.transform(X_test)
 
-ss=StandardScaler()
-X_train_sp=ss.fit_transform(X_train_sp.todense())
-X_test_sp=ss.transform(X_test_sp.todense())
-#rfc=
-#gs.fit(X_train_sp,y)
 rf_params = {
-    'n_estimators': 3000,
+    'n_estimators': 800,
     'max_features' : 'sqrt',
 }
 rf = RandomForestClassifier(**rf_params)
@@ -72,7 +67,7 @@ predict_rf=rf.predict(X_test_sp)
 # Extra Trees Parameters
 et_params = {
     'n_jobs': -1,
-    'n_estimators':3000,
+    'n_estimators':800,
     #'max_features': 0.5,
     'max_depth': 5,
     'min_samples_leaf': 2,
@@ -83,7 +78,7 @@ et.fit(X_train_sp,y)
 predict_et=et.predict(X_test_sp)
 # AdaBoost parameters
 ada_params = {
-    'n_estimators': 3000,
+    'n_estimators': 800,
     'learning_rate' : 0.5
 }
 
@@ -92,7 +87,7 @@ ada.fit(X_train_sp,y)
 predict_ada=ada.predict(X_test_sp)
 # Gradient Boosting parameters
 gb_params = {
-    'n_estimators': 3000,
+    'n_estimators': 800,
      #'max_features': 0.2,
     'max_depth': 5,
     #'min_samples_leaf': 2,
